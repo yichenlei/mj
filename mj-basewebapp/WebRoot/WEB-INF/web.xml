@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://java.sun.com/xml/ns/javaee" xmlns:web="http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd" xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd" version="2.5">
+	<display-name></display-name>
+	
+	<!--过滤器 （过滤器配置的顺序就是过滤器的执行顺序）-->
+	<!-- filter 1 -->
+	<filter>
+		<filter-name>SetCharacterEncoding</filter-name>
+		<filter-class>mj.core.framework.web.base.filter.SetCharacterEncodingFilter</filter-class>
+		<init-param>
+			<param-name>encoding</param-name>
+			<param-value>utf-8</param-value>
+		</init-param>
+	</filter>
+	<filter-mapping>
+		<filter-name>SetCharacterEncoding</filter-name>
+		<url-pattern>/*</url-pattern>
+	</filter-mapping>
+	<!-- filter 2 -->
+	<filter>
+		<filter-name>LogUrlActionFilter</filter-name>
+		<filter-class>mj.core.framework.web.base.filter.LogUrlActionFilter</filter-class>
+	</filter>
+	<filter-mapping>
+		<filter-name>LogUrlActionFilter</filter-name>
+		<url-pattern>/*</url-pattern>
+	</filter-mapping>
+  <servlet>
+    <description>mj框架web核心类，所有action由该sevlet调用</description>
+    <servlet-name>ActionExecute</servlet-name>
+    <servlet-class>mj.webapp.core.ActionExecute</servlet-class>
+  </servlet>
+  <servlet>
+  	<description>系统初始化类，需要初始化的数据，可以此类的init方法中调用</description>
+    <servlet-name>InitSystem</servlet-name>
+    <servlet-class>mj.webapp.core.InitSystem</servlet-class>
+    <load-on-startup>1</load-on-startup>
+  </servlet>
+
+
+  <servlet-mapping>
+    <servlet-name>ActionExecute</servlet-name>
+    <url-pattern>/action.go</url-pattern>
+  </servlet-mapping>
+	
+	
+	<welcome-file-list>
+	  <welcome-file>index.jsp</welcome-file>
+	</welcome-file-list>
+</web-app>
